@@ -1,0 +1,86 @@
+---
+import Image from "astro/components/Image.astro";
+// RECOMENDACIÓN: Mueve hero.webp a src/assets/hero.webp para que Astro la optimice
+// Si la dejas en public, usa src="/hero.webp" sin importar
+import HeroImage from "../../public/balance-removebg-preview.png";
+
+const ctaBtns = [
+  {
+    label: "Consultar Servicios",
+    href: "/servicios",
+    bgColor: "bg-cyan-700",
+    hover: "hover:bg-cyan-600",
+    txtHover: "hover:text-slate-50",
+    txt: "text-slate-100",
+  },
+  {
+    label: "Envíame un mensaje",
+    href: "#contacto",
+    bgColor: "bg-green-600",
+    hover: "hover:bg-green-500",
+    txtHover: "hover:text-slate-50",
+    txt: "text-slate-100",
+  },
+];
+---
+
+<!-- <section
+  class="mt-5 md:grid grid-cols-3 overflow-hidden justify-around md:mt-8"
+> -->
+<section
+  class="mt-5 px-4 md:px-0 md:grid grid-cols-3 overflow-hidden justify-around md:mt-0"
+>
+  <!-- First Column -->
+  <div class="max-w-4xl z-10">
+    <div class="flex flex-col gap-3 md:gap-2">
+      <span
+        class="text-3xl md:text-5xl lg:text-6xl font-bold font-hero tracking-tight text-slate-900 leading-tight"
+      >
+        Protegemos tus <span class="text-cyan-600">derechos</span>
+      </span>
+      <span
+        class="md:hidden text-3xl md:text-5xl lg:text-6xl font-bold font-hero tracking-tight text-slate-900 leading-tight"
+      >
+        Simplificamos tu <span class="text-cyan-600">proceso</span>
+      </span>
+    </div>
+    <p
+      class="mt-5 md:mt-4 text-lg text-slate-600 max-w-2xl mx-auto font-general"
+    >
+      Asesoría legal profesional con enfoque humano y resultados efectivos.
+    </p>
+    <div
+      class="flex flex-col gap-4 my-7 justify-between md:justify-start md:flex-row"
+    >
+      {
+        ctaBtns.map((c) => (
+          <a
+            class={`md:p-3.5 p-3 text-center md:w-fit shadow-outline rounded-xl shadow-2xl ${c.bgColor} ${c.txt} ${c.hover} ${c.txtHover} transition-all duration-300 cursor`}
+            href={c.href}
+          >
+            {c.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Secondary Column (Image) -->
+  <div>
+    <Image
+      src={HeroImage}
+      alt="Interior de oficina legal profesional"
+      class="rounded-2xl object-cover w-full md:h-full"
+      loading="eager"
+    />
+  </div>
+
+  <!-- Third Column -->
+  <div class="hidden md:flex items-end text-end">
+    <span
+      class="text-3xl md:text-5xl lg:text-6xl font-bold font-hero tracking-tight text-slate-900 leading-tight"
+    >
+      Simplificamos tu <span class="text-cyan-600">proceso</span>
+    </span>
+  </div>
+</section>

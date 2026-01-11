@@ -1,0 +1,42 @@
+---
+import Image from "astro/components/Image.astro";
+import ProfileImage from "../../public/profile.png";
+---
+
+<section id="me" class="p-2">
+  <h2
+    class="md:text-4xl text-3xl font-bold text-gray-900 text-center md:text-start mb-10 tracking-tight"
+  >
+    Sobre mí
+  </h2>
+  <div
+    class="flex flex-col justify-center items-center md:flex-row gap-5 md:items-start"
+  >
+    <Image
+      src={ProfileImage}
+      alt="Fotografía de Mariana Jimenez"
+      class="w-full h-full shadow-lg shadow-slate-300"
+    />
+
+    <div class="md:hidden w-full flex items-center justify-center gap-1">
+      <hr class="my-3 border-t-2 border-zinc-300 w-1/2" />
+      <span class="text-zinc-300">o</span>
+      <hr class="my-3 border-t-2 border-zinc-300 w-1/2" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div>
+        <h3 class="font-bold text-2xl">Mariana Jiménez Hernández</h3>
+        <span class="font-thin italic text-sm">Ced. Prof: 13746135</span>
+      </div>
+
+      <b class="italic">Texto de ejemplo:</b>
+      <p>
+        En este espacio se presenta una descripción personal o profesional,
+        donde se detalla la experiencia, formación y enfoque de trabajo del
+        titular del sitio. El contenido puede adaptarse para resaltar
+        trayectoria, especialidades y valores, según lo que se desee comunicar.
+      </p>
+    </div>
+  </div>
+</section>

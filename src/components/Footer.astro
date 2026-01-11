@@ -1,0 +1,71 @@
+---
+import Logo from "../../public/logo-nobg.png";
+import Image from "astro/components/Image.astro";
+import { Icon } from "astro-icon/components";
+import { redes } from "../repository/utilities";
+
+const menu = [
+  { label: "Inicio", href: "/" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Sobre Mí", href: "#me" },
+  { label: "Contacto", href: "#contacto" },
+];
+---
+
+<footer class="bg-cyan-950 flex flex-col">
+  <div
+    class="text-cyan-50 flex flex-col justify-evenly gap-6 py-8 px-8 md:flex-row"
+  >
+    <div class="flex flex-col items-center gap-4">
+      <Image
+        src={Logo}
+        alt="Logo de Lic. Mariana Jiménez"
+        class="w-24 m-auto"
+      />
+      <span class="font-bold font-title text-center">Mariana Jiménez</span>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2">
+          {
+            redes.map((r) => (
+              <a href={r.href} target="_blank">
+                <Icon name={r.name} class="h-7 w-7 font-thin" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 py-4 md:flex-row">
+      <div class="flex flex-col gap-1">
+        <span class="font-bold">Dirección</span>
+        <span class="font-thin"
+          >13 B Sur 8301-B Campestre Mayorazgo Puebla, Puebla.</span
+        >
+      </div>
+      <div class="flex flex-col gap-1">
+        <span class="font-bold">Contacto</span>
+        <div class="flex flex-col">
+          <!-- <Icon name="mdi:email" class="w-6 h-6" /> -->
+          <span class="font-thin tracking-wider">majih2498@gmail.com</span>
+          <span class="font-thin tracking-wider">2222758027</span>
+        </div>
+      </div>
+      <div class="hidden">
+        <span class="font-bold">Redes</span>
+        <div class="flex gap-2">
+          {
+            redes.map((r) => (
+              <a href={r.href} target="_blank">
+                <Icon name={r.name} class="h-7 w-7 font-thin" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="text-slate-400 text-center my-6 text-sm">
+    © Todos los derechos reservados. Lic. Mariana Jimenez
+  </span>
+</footer>

@@ -1,0 +1,142 @@
+---
+import servicios from "../../repository/serviciosData";
+import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+export function getStaticPaths() {
+  return servicios.map((servicio) => ({
+    params: { servicio: servicio.href },
+  }));
+}
+
+const { servicio } = Astro.params;
+const currentServicio = servicios.find((s) => s.href === servicio);
+---
+
+<Layout title={currentServicio?.title}>
+  {currentServicio && (
+    <section class="relative max-w-7xl mx-auto space-y-5">
+
+      <div class="flex justify-between">
+        <a
+          href="/servicios"
+          class="inline-flex text-cyan-700 hover:text-cyan-900 font-medium"
+        >
+          <Icon name="mdi:arrow-back" class="h-5 w-5" />
+          Ver más servicios
+        </a>
+
+        {/* <a
+            target="_blank"
+            href="https://wa.me/522222758027"
+            class="inline-flex items-center gap-1 rounded-full bg-green-600 md:px-6 md:py-3 px-2 py-2 font-semibold text-white shadow-md hover:bg-green-700 transition"
+          >
+            <Icon name="mdi:whatsapp" class="w-4 h-4 md:w-5 md:h-5" />
+            Contactame
+          </a> */}
+      </div>
+
+
+
+      <header class="space-y-3 border-b border-slate-200 pb-6">
+        <h1 class="text-3xl md:text-4xl font-extrabold capitalize text-slate-900">
+          {currentServicio.title}
+        </h1>
+
+        <p class="max-w-3xl text-slate-600 italic">
+          {currentServicio.descripcion}
+        </p>
+      </header>
+
+      <!-- Trámites -->
+      <section class="space-y-6">
+        <h2 class="text-xl font-semibold text-slate-800">
+          Servicios incluidos
+        </h2>
+
+        <ul class="space-y-4">
+          {currentServicio.tramites.map((t, index) => (
+            <li class="rounded-2xl border border-slate-200 bg-slate-100 p-5 shadow-sm space-y-3">
+
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <span class="font-medium text-slate-800">
+                  {t.label}
+                </span>
+
+                {t.categoria && (
+                  <span class="rounded-full bg-emerald-100 text-emerald-700 text-xs px-3 py-1">
+                    Trámite {t.categoria}
+                  </span>
+                )}
+              </div>
+
+              {t.instituciones && (
+                <>
+                  <button
+                    class="toggle-btn inline-flex items-center gap-1 text-sm font-medium text-cyan-700 hover:text-cyan-900"
+                    data-index={index}
+                    aria-expanded="false"
+                  >
+                    Ver instituciones
+                    <Icon
+                      name="mdi:chevron-down"
+                      class="w-4 h-4 transition-transform"
+                    />
+                  </button>
+
+                  <div
+                    class="expandable-content grid grid-rows-[0fr] transition-all duration-300"
+                    data-index={index}
+                  >
+                    <div class="overflow-hidden">
+                      <ul class="mt-2 space-y-1 text-sm text-slate-600">
+                        {t.instituciones.map((inst) => (
+                          <li class="capitalize">
+                            •{" "}
+                            {inst.siglas
+                              ? `${inst.siglas} (${inst.nombre})`
+                              : inst.nombre}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </>
+              )}
+
+            </li>
+          ))}
+        </ul>
+      </section>
+
+       <a
+            target="_blank"
+            href="https://wa.me/522222758027"
+            class="inline-flex items-center gap-1 rounded-full bg-green-600 md:px-6 md:py-3 px-2 py-2 font-semibold text-white shadow-md hover:bg-green-700 transition"
+          >
+            <Icon name="mdi:whatsapp" class="w-4 h-4 md:w-5 md:h-5" />
+            Contactame
+          </a>
+
+    </section>
+  )}
+</Layout>
+
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".toggle-btn");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const index = btn.dataset.index;
+      if (!index) return;
+
+      const content = document.querySelector<HTMLDivElement>(
+        `.expandable-content[data-index="${index}"]`
+      );
+
+      content?.classList.toggle("grid-rows-[0fr]");
+      content?.classList.toggle("grid-rows-[1fr]");
+    });
+  });
+</script>

@@ -1,0 +1,57 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../../layouts/Layout.astro";
+// import ServiciosC from '../../components/Servicios.astro';
+import servicios from "../../repository/serviciosData";
+---
+
+<Layout title="Servicios">
+  <section class="w-full">
+    <div class="mx-auto">
+      <h2
+        class="md:text-4xl text-3xl font-bold text-gray-900 my-10 tracking-tight"
+      >
+        Nuestros Servicios
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          servicios.map((s) => (
+            <a href={`servicios/${s.href}`} class="h-full w-full">
+              <div
+                class="relative h-80 md:h-96 bg-cover bg-bottom bg-no-repeat
+         bg-[linear-gradient(to_bottom,rgba(0,0,0,var(--from)),rgba(0,0,0,var(--to)))]"
+                style={`
+    --from: 0.6;
+    --to: 0.6;
+    background-image:
+      linear-gradient(to bottom,
+        rgba(0,0,0,var(--from)),
+        rgba(0,0,0,var(--to))
+      ),
+      url(${s.bgImg});
+  `}
+              >
+                <div class="absolute inset-0 md:p-8 p-6 flex flex-col">
+                  <h3 class="text-2xl font-bold mb-3 text-white">
+                    {s.cardLabel}
+                  </h3>
+
+                  <p class="text-slate-300 leading-relaxed mb-6 grow">
+                    {s.descripcion}
+                  </p>
+                  <span class="inline-flex items-center self-end font-semibold text-cyan-100 hover:text-cyan-200 transition-colors">
+                    Ver servicios
+                    <span class="ml-1 group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,164 @@
+---
+import Image from "astro/components/Image.astro";
+import Logo from "../../public/logo-nobg.png";
+import SideMenu from "./SideMenu.astro";
+import { Icon } from "astro-icon/components";
+import { navbar } from "../repository/utilities";
+---
+
+<header
+  class="sticky top-0 z-50 flex justify-between items-center px-4 py-4"
+  id="header"
+>
+  <a href="/">
+    <div class="header-wrapper">
+      <div class="logo-container">
+        <Image src={Logo} alt="Logo de Lic. Mariana Jiménez" class="logo-img" />
+      </div>
+      <h1 id="title" class="mov-title font-logo">Mariana Jiménez</h1>
+    </div>
+  </a>
+  <nav class="hidden md:block">
+    <ul class="flex gap-12 p-1 bg-transparent text-[18px]">
+      {
+        navbar.map((n) => (
+          <li>
+            <a href={n.href}>{n.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <button
+    id="menu-btn"
+    class="md:hidden p-2 focus:outline-none"
+    aria-label="Abrir menú"
+  >
+    <Icon name="mdi:menu" class="text-3xl" />
+  </button>
+  <SideMenu />
+</header>
+
+<script>
+  const btn = document.querySelector("#menu-btn");
+  const header = document.querySelector("#header");
+  const title = document.querySelector("#title");
+
+  if (btn) {
+    btn.addEventListener("click", () => {
+      // Lanzamos un evento personalizado al "aire" (window)
+      const event = new CustomEvent("toggle-menu");
+      window.dispatchEvent(event);
+    });
+  }
+</script>
+
+<style>
+  :root {
+    --background-header: oklch(60.9% 0.126 221.723);
+    --txt-color: #f1f1f1;
+  }
+  #title {
+    color: black !important;
+    font-size: 18px !important;
+  }
+  #header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    animation: colorear linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 20%;
+
+    animation: shrinkHeader linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 20%;
+  }
+
+  @keyframes shrinkHeader {
+    from {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    to {
+      padding-top: 0.1rem;
+      padding-bottom: 0.1rem;
+      color: var(--txt-color);
+      background-color: var(--background-header);
+      color: var(--txt-color);
+    }
+  }
+
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 10px;
+    z-index: 20;
+    overflow: hidden;
+
+    animation: encojer linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 20%;
+  }
+
+  @keyframes encojer {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0.85);
+    }
+  }
+
+  .logo-container {
+    position: relative;
+    z-index: 20; /* El logo siempre encima */
+    overflow: hidden;
+    background-color: #fff;
+
+    animation: colorearLogoCont linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 20%;
+  }
+
+  @keyframes colorearLogoCont {
+    to {
+      background-color: var(--background-header);
+    }
+  }
+
+  .logo-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .mov-title {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: normal;
+    z-index: 10; /* El título debajo del logo */
+
+    /* Configuración de la animación */
+    animation: aparecerYDeslizar linear forwards;
+    animation-timeline: scroll(root); /* Vincula al scroll de la página */
+    animation-range: 0px 20%; /* La animación empieza en 0px y termina a los 150px de scroll */
+  }
+
+  @keyframes aparecerYDeslizar {
+    from {
+      z-index: 10;
+      /* transform: translateX(-50px); Empieza detrás del logo */
+      transform: translateX(0px);
+    }
+    to {
+      z-index: 0;
+      /* transform: translateX(0);     Termina en su posición natural */
+      transform: translateX(-110%);
+      /* transform: scale(0.5);    */
+    }
+  }
+</style>
